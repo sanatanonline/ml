@@ -1,0 +1,40 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import scipy.cluster.hierarchy as shc
+from scipy.spatial.distance import squareform, pdist
+
+a = np.array([0.40, 0.22, 0.35, 0.26, 0.08, 0.45])
+b = np.array([0.53, 0.38, 0.32, 0.19, 0.41, 0.30])
+c = np.array([0.59, 0.35, 0.16, 0.19, 0.46, 0.30])
+point = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6']
+data = pd.DataFrame({'Point': point, 'a': np.round(a, 2), 'b': np.round(b, 2), 'c': np.round(c, 2)})
+data = data.set_index('Point')
+print(data)
+
+dist = pd.DataFrame(squareform(pdist(data[['a', 'b', 'c']]), 'euclidean'), columns=data.index.values,
+                    index=data.index.values)
+print("----euclidean----")
+print(dist)
+
+dist1 = pd.DataFrame(squareform(pdist(data[['a', 'b', 'c']], 'cityblock')), columns=data.index.values,
+                     index=data.index.values)
+print("----manhattan----")
+print(dist1)
+
+plt.figure(figsize=(10, 7))
+
+plt.subplot(2, 2, 1)
+plt.title("Dendrogram with Single linkage")
+dend = shc.dendrogram(shc.linkage(data[['a', 'b', 'c']], method='single'), labels=data.index)
+plt.show()
+
+plt.subplot(2, 2, 2)
+plt.title("Dendrogram with Complete/Maximum linkage")
+dend = shc.dendrogram(shc.linkage(data[['a', 'b', 'c']], method='complete'), labels=data.index)
+plt.show()
+
+plt.subplot(2, 2, 3)
+plt.title("Dendrogram with Average linkage")
+dend = shc.dendrogram(shc.linkage(data[['a', 'b', 'c']], method='average'), labels=data.index)
+plt.show()
