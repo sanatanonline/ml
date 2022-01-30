@@ -1,7 +1,7 @@
 ml
 ==============================
 
-Machine Learning algorithms - from scratch and using ststandard libraries
+Machine Learning algorithms - from scratch and using standard libraries
 
 Project Organization
 ------------
