@@ -62,3 +62,38 @@ p6.set_title("(vi) Hard Tanh", y=0, pad=-35, verticalalignment="top")
 
 plt.show()
 
+p = sns.lineplot(x=random_numbers, y=linear_values)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(i) Linear", y=0, pad=-35, verticalalignment="top")
+plt.show()
+
+p = sns.lineplot(x=random_numbers, y=signed_values)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(ii) Sign", y=0, pad=-35, verticalalignment="top")
+plt.show()
+
+p = sns.lineplot(x=random_numbers, y=logsigmoid_numbers)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(iii) Sigmoid", y=0, pad=-35, verticalalignment="top")
+plt.show()
+
+p = sns.lineplot(x=random_numbers, y=tansigmoid_numbers)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(iv) Tanh", y=0, pad=-35, verticalalignment="top")
+plt.show()
+
+p = sns.lineplot(x=random_numbers, y=relu_numbers)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(v) ReLU", y=0, pad=-35, verticalalignment="top")
+plt.show()
+
+p = sns.lineplot(x=random_numbers, y=hardtansigmoid_numbers)
+p.set_xlabel("x")
+p.set_ylabel("f(x)")
+p.set_title("(vi) Hard Tanh", y=0, pad=-35, verticalalignment="top")
+plt.show()

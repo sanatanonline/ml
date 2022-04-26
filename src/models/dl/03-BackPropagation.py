@@ -1,6 +1,10 @@
 from math import exp
 from random import seed
 from random import random
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 # Initialize a network
@@ -90,7 +94,7 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
 
 
-# Test training backprop algorithm
+# Test training backpropagation algorithm
 seed(1)
 dataset = [[2.7810836, 2.550537003, 0],
            [1.465489372, 2.362125076, 0],
@@ -102,6 +106,11 @@ dataset = [[2.7810836, 2.550537003, 0],
            [6.922596716, 1.77106367, 1],
            [8.675418651, -0.242068655, 1],
            [7.673756466, 3.508563011, 1]]
+
+df = pd.DataFrame (dataset, columns = ['x1', 'x2', 'y'])
+sns.scatterplot(data=df, x='x1', y='x2', hue='y')
+plt.show()
+
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, n_outputs)

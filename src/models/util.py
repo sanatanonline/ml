@@ -10,15 +10,30 @@ def activate(weights, inputs, bias):
 
 def logsigmoid(x):
     s = 1 / (1 + np.exp(-x))
-    ds = s * (1 - s)
-    return s, ds
+    # ds = s * (1 - s)
+    return s
 
 
 def tansigmoid(x):
     t = (np.exp(x) - np.exp(-x)) / (np.exp(x) + np.exp(-x))
-    dt = 1 - t ** 2
-    return t, dt
+    # dt = 1 - t ** 2
+    return t
 
 
 def purelinear(x):
     return x
+
+
+def sign(x):
+    if x >= 0:
+        return 1
+    else:
+        return -1
+
+
+def relu(x):
+    return max(0, x)
+
+
+def hardtansigmoid(x):
+    return max(min(x, 1), -1)
