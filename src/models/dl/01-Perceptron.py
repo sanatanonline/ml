@@ -2,7 +2,8 @@ import random
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-from src.models import util, data
+from src.models import util
+from src.models.util import data
 
 random.seed(42)
 
