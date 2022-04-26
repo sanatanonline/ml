@@ -1,8 +1,8 @@
-import util
-import data
 import random
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+from src.models import util, data
 
 random.seed(42)
 

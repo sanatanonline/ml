@@ -1,1 +1,6 @@
-print("hi")
+print("Welcome to the learning of machine learning")
+print("")
+print("We will learn:")
+print("(1) Machine Learning")
+print("(2) Deep Learning")
+print("(3) Clustering")
