@@ -1,47 +1,54 @@
-import random
-import seaborn as sns
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+from sklearn import datasets
 
-from src.models.util import data, util
+X, y = datasets.make_blobs(n_samples=150, n_features=2,
+                           centers=2, cluster_std=1.05,
+                           random_state=2)
 
-random.seed(42)
-
-df = data.load("lc.csv")
-
-p = sns.scatterplot(x=df['x1'], y=df['x2'], hue=df['y'])
-p.set_xlabel("x1")
-p.set_ylabel("x2")
-p.set_title("Data Distribution", y=0, pad=-40, verticalalignment="top")
+plt.plot(X[:, 0][y == 0], X[:, 1][y == 0], 'r^')
+plt.plot(X[:, 0][y == 1], X[:, 1][y == 1], 'bs')
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.title('Random Classification Data with 2 classes')
 plt.show()
 
-weights = [0.3, 0.7]
-w1 = []
-w2 = []
-bias = 0.1
-alpha = 0.1
-number_of_epochs = 100
-epoch_errors = []
 
-for epoch in range(number_of_epochs):
-    errors = []
+def step_func(z):
+    return 1.0 if (z > 0) else 0.0
 
-    for index, row in df.iterrows():
-        x = [row['x1'], row['x2']]
-        net = util.activate(weights, x, bias)
-        s = util.logsigmoid(net)
-        if s > row['y']:
-            weights = weights + np.multiply(x, alpha)
-        else:
-            weights = weights - np.multiply(x, alpha)
-        errors.append((row['y'] - s)*(row['y'] - s))
 
-    w1.append(weights[0])
-    w2.append(weights[1])
-    epoch_errors.append(np.mean(errors))
+def perceptron(X, y, lr, epochs):
+    m, n = X.shape
+    theta = np.zeros((n + 1, 1))
+    n_miss_list = []
+    for epoch in range(epochs):
+        n_miss = 0
+        for idx, x_i in enumerate(X):
+            x_i = np.insert(x_i, 0, 1).reshape(-1, 1)
+            y_hat = step_func(np.dot(x_i.T, theta))
+            if (np.squeeze(y_hat) - y[idx]) != 0:
+                theta += lr * ((y[idx] - y_hat) * x_i)
+                n_miss += 1
+        n_miss_list.append(n_miss)
 
-p = sns.lineplot(x=w2, y=epoch_errors)
-p.set_xlabel("Weights")
-p.set_ylabel("Training Error")
-p.set_title("Average training error", y=0, pad=-40, verticalalignment="top")
-plt.show()
+    return theta, n_miss_list
+
+
+def plot_decision_boundary(X, theta):
+    x1 = [min(X[:, 0]), max(X[:, 0])]
+    m = -theta[1] / theta[2]
+    c = -theta[0] / theta[2]
+    x2 = m * x1 + c
+
+    plt.plot(X[:, 0][y == 0], X[:, 1][y == 0], "r^")
+    plt.plot(X[:, 0][y == 1], X[:, 1][y == 1], "bs")
+    plt.xlabel("Feature 1")
+    plt.ylabel("Feature 2")
+    plt.title('Perceptron Algorithm')
+    plt.plot(x1, x2, 'y-')
+    plt.show()
+
+
+theta, miss_l = perceptron(X, y, 0.5, 100)
+plot_decision_boundary(X, theta)

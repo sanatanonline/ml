@@ -1,4 +1,7 @@
 import numpy as np
+import pandas as pd
+
+from pylab import rand
 
 
 def activate(weights, inputs, bias):
@@ -37,3 +40,23 @@ def relu(x):
 
 def hardtansigmoid(x):
     return max(min(x, 1), -1)
+
+
+def generate_data(n):
+    xb = (rand(n) * 2 - 1) / 2 - 0.5
+    yb = (rand(n) * 2 - 1) / 2 + 0.5
+    xr = (rand(n) * 2 - 1) / 2 + 0.5
+    yr = (rand(n) * 2 - 1) / 2 - 0.5
+    inputs = []
+    for i in range(len(xb)):
+        inputs.append([xb[i], yb[i], 1])
+        inputs.append([xr[i], yr[i], -1])
+    x1 = []
+    x2 = []
+    y = []
+    for row in inputs:
+        x1.append(row[0])
+        x2.append(row[1])
+        y.append(row[2])
+
+    return pd.DataFrame(list(zip(x1, x2, y)), columns=['x1', 'x2', 'y'])
