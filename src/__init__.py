@@ -1,5 +1,4 @@
-print("Welcome to the learning of machine learning using python")
-print("")
+print("Welcome to the learning of machine learning using python.\n")
 print("We will learn:")
 print("(1) Python Fundamentals")
 print("(2) Machine Learning")
