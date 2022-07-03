@@ -38,3 +38,32 @@ count = 0
 while count < len(movies):
     print(movies[count])
     count += 1
+
+'nested lists'
+complete_movies = [['Titanic', 1970], ['The Spiderman', 2012], ['Avengers', 2021]]
+print(complete_movies[1][1])
+
+for each_movie in complete_movies:
+    if isinstance(each_movie, list):
+        print("this is a list", each_movie)
+    print(each_movie, type(each_movie))
+
+'built-in functions'
+built_ins = dir(__builtins__)
+print(len(built_ins))
+for item in built_ins:
+    print(item)
+
+
+def process_nested_list(items):
+    """
+    This function prints the nested list of items
+    """
+    for list_item in items:
+        if isinstance(list_item, list):
+            process_nested_list(list_item)
+        else:
+            print(list_item)
+
+
+process_nested_list(movies)
