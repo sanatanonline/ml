@@ -14,7 +14,7 @@ try:
             pass
     data.close()
 except IOError:
-    print('The datafile is missing!')
+    print('The data file is missing!')
 
 try:
     man_file = open("man_data.txt", "w")
