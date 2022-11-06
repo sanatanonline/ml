@@ -1,5 +1,7 @@
 # example of plotting a gradient descent search on a one-dimensional function
-from numpy import asarray
+
+
+from numpy import asarray, exp
 from numpy import arange
 from numpy.random import rand
 from matplotlib import pyplot
@@ -7,12 +9,12 @@ from matplotlib import pyplot
 
 # objective function
 def objective(x):
-    return x ** 2.0
+    return 1.0 / (1.0 + exp(-x))
 
 
 # derivative of objective function
 def derivative(x):
-    return x * 2.0
+    return x * (1.0 - x)
 
 
 # gradient descent algorithm
@@ -40,7 +42,7 @@ def gradient_descent(objective, derivative, bounds, n_iter, step_size):
 # define range for input
 bounds = asarray([[-1.0, 1.0]])
 # define the total iterations
-n_iter = 30
+n_iter = 1000
 # define the step size
 step_size = 0.1
 # perform the gradient descent search
@@ -52,6 +54,6 @@ results = objective(inputs)
 # create a line plot of input vs result
 pyplot.plot(inputs, results)
 # plot the solutions found
-pyplot.plot(solutions, scores, '.-', color='red')
+# pyplot.plot(solutions, scores, '.-', color='red')
 # show the plot
 pyplot.show()
