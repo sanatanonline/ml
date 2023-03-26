@@ -1,6 +1,6 @@
 from random import seed, gauss
 
-from src.models import util_func
+from src.model import util_func
 import seaborn as sns
 import matplotlib.pyplot as plt
 

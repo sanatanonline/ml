@@ -1,7 +1,7 @@
 ml
 ==============================
 
-Machine Learning algorithms - from scratch and using standard libraries
+Machine Learning algorithms - from scratch or using standard libraries.
 
 Project Organization
 ------------
@@ -10,7 +10,7 @@ Project Organization
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
     │   └── raw            <- The original, immutable data dump.
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering).
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
@@ -19,7 +19,7 @@ Project Organization
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │                     predictions
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
+    │   └── plot  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
 
 --------
