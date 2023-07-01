@@ -1,2 +1,0 @@
-print("***********Generative Adversarial Networks***********")
-
