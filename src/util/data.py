@@ -1,6 +1,6 @@
 import pandas as pd
 
-ROOT_DIR = "/Users/sanatan/local/code/ml/data/raw/"
+ROOT_DIR = "/data/raw/"
 
 
 def load(filename):

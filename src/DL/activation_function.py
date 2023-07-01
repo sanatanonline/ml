@@ -1,6 +1,6 @@
 from random import seed, gauss
 
-from src.model import util_func
+from src import util
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -17,12 +17,12 @@ relu_numbers = []
 hardtansigmoid_numbers = []
 
 for val in random_numbers:
-    linear_values.append(util_func.purelinear(val))
-    signed_values.append(util_func.sign(val))
-    logsigmoid_numbers.append(util_func.logsigmoid(val))
-    tansigmoid_numbers.append(util_func.sign(val))
-    relu_numbers.append(util_func.relu(val))
-    hardtansigmoid_numbers.append(util_func.hardtansigmoid(val))
+    linear_values.append(util.purelinear(val))
+    signed_values.append(util.sign(val))
+    logsigmoid_numbers.append(util.logsigmoid(val))
+    tansigmoid_numbers.append(util.sign(val))
+    relu_numbers.append(util.relu(val))
+    hardtansigmoid_numbers.append(util.hardtansigmoid(val))
 
 plt.subplot(2, 3, 1)
 p1 = sns.lineplot(x=random_numbers, y=linear_values)
