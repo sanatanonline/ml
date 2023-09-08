@@ -24,7 +24,7 @@ visitedurls = set()
 url = "https://wellsfargo.com"
 allurls.update([url])
 
-for level in range(3):
+for level in range(10):
     temp = allurls.copy()
     for el in temp:
         if el not in visitedurls:
