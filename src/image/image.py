@@ -1,52 +1,40 @@
-# 3d plot of the test function
-from numpy import arange
-from numpy import meshgrid
-from matplotlib import pyplot
+from skimage.metrics import structural_similarity
+import cv2
 
 
-# objective function
-def objective(x, y):
-    return x ** 2.0 + y ** 2.0
+# Works well with images of different dimensions
+def orb_sim(img_1, img_2):
+    orb = cv2.ORB_create()
+
+    # detect keypoints and descriptors
+    kp_a, desc_a = orb.detectAndCompute(img_1, None)
+    kp_b, desc_b = orb.detectAndCompute(img_2, None)
+
+    # define the bruteforce matcher object
+    bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
+
+    # perform matches.
+    matches = bf.match(desc_a, desc_b)
+
+    # Look for similar regions with distance < 50. Goes from 0 to 100 so pick a number between.
+    similar_regions = [i for i in matches if i.distance < 50]
+    if len(matches) == 0:
+        return 0
+    return len(similar_regions) / len(matches)
 
 
-# define range for input
-r_min, r_max = -1.0, 1.0
-# sample input range uniformly at 0.1 increments
-xaxis = arange(r_min, r_max, 0.1)
-yaxis = arange(r_min, r_max, 0.1)
-# create a mesh from the axis
-x, y = meshgrid(xaxis, yaxis)
-# compute targets
-results = objective(x, y)
-# create a surface plot with the jet color scheme
-figure = pyplot.figure()
-axis = figure.gca(projection='3d')
-axis.plot_surface(x, y, results, cmap='jet')
-# show the plot
-pyplot.show()
-
-# contour plot of the test function
-from numpy import asarray
-from numpy import arange
-from numpy import meshgrid
-from matplotlib import pyplot
+# Needs images with same dimension
+def structural_sim(img_1, img_2):
+    sim, diff = structural_similarity(img_1, img_2, full=True)
+    return sim
 
 
-# objective function
-def objective(x, y):
-    return x ** 2.0 + y ** 2.0
+img1 = cv2.imread('data/img1.png', 0)
+img2 = cv2.imread('data/img2.png', 0)
 
+orb_similarity = orb_sim(img1, img2)  # 1.0 means identical. Lower = not similar
 
-# define range for input
-bounds = asarray([[-1.0, 1.0], [-1.0, 1.0]])
-# sample input range uniformly at 0.1 increments
-xaxis = arange(bounds[0, 0], bounds[0, 1], 0.1)
-yaxis = arange(bounds[1, 0], bounds[1, 1], 0.1)
-# create a mesh from the axis
-x, y = meshgrid(xaxis, yaxis)
-# compute targets
-results = objective(x, y)
-# create a filled contour plot with 50 levels and jet color scheme
-pyplot.contourf(x, y, results, levels=50, cmap='jet')
-# show the plot
-pyplot.show()
+print("Similarity using ORB is: ", orb_similarity)
+
+ssim = structural_sim(img1, img2)  # 1.0 means identical. Lower = not similar
+print("Similarity using SSIM is: ", ssim)
