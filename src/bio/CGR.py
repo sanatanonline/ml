@@ -70,8 +70,8 @@ def mk_plot(cgr, name, figid):
     y_axis = [i[1][1] for i in cgr]
     plt.figure(figid)
     plt.title("Chaos Game Representation\n" + name, wrap=True)
-    #plt.plot([CGR_CENTER[0], CGR_CENTER[0]], [0, CGR_Y_MAX], 'k-')
-    #plt.plot([CGR_Y_MIN, CGR_X_MAX], [CGR_CENTER[1], CGR_CENTER[1]], 'k-')
+    plt.plot([CGR_CENTER[0], CGR_CENTER[0]], [0, CGR_Y_MAX], 'k-')
+    plt.plot([CGR_Y_MIN, CGR_X_MAX], [CGR_CENTER[1], CGR_CENTER[1]], 'k-')
     plt.scatter(x_axis, y_axis, alpha=0.5, marker='.')
     return {'fignum': figid, 'title': name, 'fname': slugify(name)}
 
